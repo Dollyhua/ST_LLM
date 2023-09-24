@@ -42,7 +42,7 @@ ST_preprocess <- function(ID, suffix){
         h5_object <- CreateSeuratObject(counts=h5_file, project=paste0(sample))
         #####QC，Discard low quality Spots
         h5_object[["percent.mt"]] <- PercentageFeatureSet(object = h5_object, pattern = "^MT-")
-        h5_object_sub <- subset(h5_object, subset = nFeature_RNA > 200 & percent.mt < 10)
+        h5_object <- subset(h5_object, subset = nFeature_RNA > 200 & percent.mt < 10)
 
         h5_object <- SCTransform(h5_object, assay = "RNA", verbose = FALSE)
 
