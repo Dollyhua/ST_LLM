@@ -6,10 +6,10 @@ ST_preprocess <- function(outDir, study_ID, file_suffix, genome) {
   # Preprocess ST data
   #
   # Args:
-  #   outDir: Diretory for data saving. Choose form: '/fs/home/dongzhonghua/STARDUST/Data/' or '/fs/home/shixiaoying/Project/ST_LLM/Data/'.
+  #   outDir: Diretory for data saving. Choose from: '/fs/home/dongzhonghua/STARDUST/Data/' or '/fs/home/shixiaoying/Project/ST_LLM/Data/'.
   #   study_ID: GSE number. 
   #   file_suffix: Suffix of files. Example: '_gene_count.h5', '_filtered_feature_bc_matrix.h5', '.h5' and so on.
-  #   genome: Genome version. 'GRCh38', 'GRCh37', 'GRCm38', 'GRCm37'.
+  #   genome: Genome version. Choose from: 'GRCh38', 'GRCh37', 'GRCm38', 'GRCm37'.
   # 
   # Return:
   #   QC-filtered .rds file.
