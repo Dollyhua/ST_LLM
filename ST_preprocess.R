@@ -43,23 +43,36 @@ ST_preprocess <- function(outDir, study_ID, file_suffix, genome) {
     saveRDS(h5_object, file = file.path(resDir, paste0(sample, "_filtered.rds")))
 
     # Save the QC-filtered .h5 file for STRIDE deconvolution.
-    mtxPath <- file.path(resDir, paste0(sample, "_matrix_filtered.mtx"))
-    barcodePath <- file.path(resDir, paste0(sample, "_barcode_filtered.tsv"))
-    featurePath <- file.path(resDir, paste0(sample, "_feature_filtered.tsv"))
-    writeMM(h5_object@assays$RNA@data, file = mtxPath)
-    write.table(colnames(h5_object@assays$RNA), file = barcodePath, sep = '\t', quote=F, row.names = F, col.names = F)
-    write.table(rownames(h5_object@assays$RNA), file = featurePath, sep = '\t', quote=F, row.names = F, col.names = F)
+    saveRDS(h5_object, file = file.path(resDir, paste0(sample, "_filtered.rds")))
+    writeh5(h5path = file.path(resDir, paste0(sample, "_gene_count_QC.h5")), 
+            count_data = h5_object@assays$RNA@data, 
+            genome_assembly = genome)
     
-    system(paste0('MAESTRO mtx-to-h5  --type Gene --gene-column 1 --matrix ', mtxPath,
-                  ' --feature ', featurePath,
-                  ' --barcode ', barcodePath,
-                  ' --species ', genome,
-                  ' -d ', resDir,
-                  ' --outprefix ', sample, '_QC'
-                  ))
   }
 }
-    
+
+writeh5 <- function(h5path, count_data, genome_assembly){
+  library(rhdf5)
+  library(hdf5r)
+  
+  h5createFile(h5path)
+  h5createGroup(h5path,"matrix")
+  h5write(count_data@Dimnames[[2]] , h5path, "matrix/barcodes")
+  h5write(count_data@x, h5path, "matrix/data")
+  h5createGroup(h5path,"matrix/features")
+  h5write("genome", h5path, "matrix/features/_all_tag_keys")
+  Genes <- rep("Gene Expression", length(count_data@Dimnames[[1]]))
+  h5write(Genes,h5path, "matrix/features/feature_type")
+  Genome <- rep(genome_assembly, length(count_data@Dimnames[[1]])) 
+  h5write(Genome, h5path,"matrix/features/genome")
+  h5write(count_data@Dimnames[[1]],h5path, "matrix/features/id")
+  h5write(count_data@Dimnames[[1]],h5path, "matrix/features/name")
+  h5write(count_data@i, h5path, "matrix/indices") 
+  h5write(count_data@p, h5path, "matrix/indptr")
+  h5write(count_data@Dim, h5path, "matrix/shape")
+  h5closeAll()
+}
+
 # Usage
 outDir <- "/fs/home/dongzhonghua/STARDUST/Data/"
 study_ID <- "GSE210041"
