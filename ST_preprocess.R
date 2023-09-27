@@ -43,7 +43,6 @@ ST_preprocess <- function(outDir, study_ID, file_suffix, genome) {
     saveRDS(h5_object, file = file.path(resDir, paste0(sample, "_filtered.rds")))
 
     # Save the QC-filtered .h5 file for STRIDE deconvolution.
-    saveRDS(h5_object, file = file.path(resDir, paste0(sample, "_filtered.rds")))
     writeh5(h5path = file.path(resDir, paste0(sample, "_gene_count_QC.h5")), 
             count_data = h5_object@assays$RNA@data, 
             genome_assembly = genome)
