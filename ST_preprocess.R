@@ -16,7 +16,7 @@ ST_preprocess <- function(outDir, study_ID, file_suffix, genome) {
   #   QC-filtered .h5 file.
   
   resDir <- file.path(outDir, study_ID, "suppl")
-  allh5 <- list.files(resDir, pattern = '*h5', recursive = T, full.names = T)
+  allh5 <- list.files(resDir, pattern = '*\\.h5', recursive = T, full.names = T)
   suffix_list <- unique(c('_gene_count.h5', '_filtered_feature_bc_matrix.h5', '.h5', file_suffix))
   samples <- gsub(paste(suffix_list,  collapse= '|'), '', basename(allh5))
   print(samples)
@@ -57,7 +57,7 @@ writeh5 <- function(h5path, count_data, genome_assembly){
   h5createFile(h5path)
   h5createGroup(h5path,"matrix")
   h5write(count_data@Dimnames[[2]] , h5path, "matrix/barcodes")
-  h5write(count_data@x, h5path, "matrix/data")
+  h5write(as.integer(count_data@x), h5path, "matrix/data")
   h5createGroup(h5path,"matrix/features")
   h5write("genome", h5path, "matrix/features/_all_tag_keys")
   Genes <- rep("Gene Expression", length(count_data@Dimnames[[1]]))
@@ -73,7 +73,7 @@ writeh5 <- function(h5path, count_data, genome_assembly){
 }
 
 # Usage
-outDir <- "/fs/home/dongzhonghua/STARDUST/Data/"
+outDir <- "/fs/home/dongzhonghua/STARDUST/Data"
 study_ID <- "GSE210041"
 file_suffix <- "_filtered_feature_bc_matrix.h5"
 genome <- "GRCh38"
