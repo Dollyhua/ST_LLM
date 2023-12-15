@@ -18,5 +18,5 @@ See https://github.com/liulab-dfci/MAESTRO for more information, or enter 'MAEST
 To import spatial image information, create a folder named 'sample_spatial'. This folder should contain both images and spot location information. Acceptable image formats include 'tissue_hires_image.png', 'tissue_lowres_image.png', 'sample_HE.tiff', 'sample_HE.png' and 'sample_HE.jpeg'. Acceptable location information formats include 'tissue_positions_list.csv' and 'sample_spot_location.txt'. Additionally, we can also read in 'scalefactors_json.json' for additional image information if available.
 
 ## 3. Preprocess ST data
-R language "Seurat" package is used to preprocess ST data, the specific code is in `ST_pre_processing.R`.
+R language "Seurat" package is used to preprocess ST data, the specific code is in `ST_preprocess.R`.
 
