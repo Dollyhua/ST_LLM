@@ -173,7 +173,7 @@ ST_preprocess <- function(outDir, study_ID, file_suffix, genome) {
     # Add image information to ST_object.
     ST_object <- readRDS(file.path(resDir, paste0(sample, "_filtered.rds"))) 
     spatial_dir <- file.path(resDir, paste0(sample,"_spatial"))
-    image <- Read_image(sample = sample, saptial_dir = spatial_dir)
+    image <- Read_image(sample = sample, spatial_dir = spatial_dir)
     DefaultAssay(object = image) <- 'RNA'
     image <- image[colnames(x = ST_object)]
     ST_object[[sample]] <- image
