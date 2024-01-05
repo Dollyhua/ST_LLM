@@ -50,7 +50,7 @@ expr_preprocess <- function(resDir, sample, samplePath, genome){
 
 # To import spatial image information, create a folder named "sample_spatial."
 # This folder should contain both images and spot location information.
-# Acceptable image formats include tissue_hires_image.png, tissue_lowres_image.png, sample_HE.tiff, sample_HE.png and sample_HE.jpeg.
+# Acceptable image formats include tissue_hires_image.png, tissue_lowres_image.png, sample_HE.tiff, sample_HE.png and sample_HE.jpeg(sample_HE.jpg).
 # Acceptable location information formats include tissue_positions_list.csv and sample_spot_location.txt.
 # Additionally, you can also read in scalefactors_json.json for additional image information if available.
 
@@ -82,6 +82,9 @@ Read_image <- function(sample, spatial_dir){
         img <- readPNG(image.path)
     } else if(paste0(sample,"_HE.jpeg") %in% spatial_files) {
         image.path <- file.path(saptial_dir, paste0(sample,"_HE.jpeg"))
+        img <- readJPEG(image.path)
+    } else if(paste0(sample,"_HE.jpg") %in% spatial_files) {
+        image.path <- file.path(saptial_dir, paste0(sample,"_HE.jpg"))
         img <- readJPEG(image.path)
     } else {
         image.path <- NA
