@@ -88,7 +88,7 @@ Read_image <- function(sample, spatial_dir){
         img <- readJPEG(image.path)
     } else {
         image.path <- NA
-        img <- NA
+        img <- array(NA)
         warning("No acceptable image found. Please check the directory for image files or rename them to acceptable formats.")
     }
 
@@ -103,7 +103,7 @@ Read_image <- function(sample, spatial_dir){
             spot.radius <-  unnormalized.radius / max(dim(x = img))
         } else{
             unnormalized.radius <- NA
-            spot.radius <- NA
+            spot.radius <- 0
         }
         scale.factors = scalefactors(
         spot = scale.factors$spot_diameter_fullres,
@@ -119,7 +119,7 @@ Read_image <- function(sample, spatial_dir){
         lowres = NA
         )
         unnormalized.radius <- NA
-        spot.radius <- NA
+        spot.radius <- 0
     }
 
     # Read in tissue positions
@@ -132,7 +132,7 @@ Read_image <- function(sample, spatial_dir){
                                         sep = "\t", quote = "", header = TRUE, 
                                         col.names = c("barcodes","row","col"), row.names = 1)
     } else{
-        tissue_positions_df <- NA
+        tissue_positions_df <- data.frame("barcodes" = NA, "tissue" = NA, "row" = NA, "col" = NA, "imagerow" = NA, "imagecol" = NA)
         warning("No acceptable tissue positions file found. Please check the directory for positions files or rename them to acceptable formats.")
     }
         
