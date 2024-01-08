@@ -59,7 +59,7 @@ Read_image <- function(sample, spatial_dir){
     # 
     # Args:
     #   sample: Name of the sample.
-    #   saptial_dir: Path to directory containing images and spot location information.
+    #   spatial_dir: Path to directory containing images and spot location information.
     #
     # Return:
     #   A 'VisiumV1' class object with image, scale factors, coordinates, and spot radius.
@@ -75,16 +75,16 @@ Read_image <- function(sample, spatial_dir){
         image.path <- file.path(spatial_dir, "tissue_lowres_image.png")
         img <- readPNG(image.path)
     } else if (paste0(sample,"_HE.tif") %in% spatial_files) {
-        image.path <- file.path(saptial_dir, paste0(sample,"_HE.tif"))
+        image.path <- file.path(spatial_dir, paste0(sample,"_HE.tif"))
         img <- readTIFF(image.path)
     } else if(paste0(sample,"_HE.png") %in% spatial_files) {
-        image.path <- file.path(saptial_dir, paste0(sample,"_HE.png"))
+        image.path <- file.path(spatial_dir, paste0(sample,"_HE.png"))
         img <- readPNG(image.path)
     } else if(paste0(sample,"_HE.jpeg") %in% spatial_files) {
-        image.path <- file.path(saptial_dir, paste0(sample,"_HE.jpeg"))
+        image.path <- file.path(spatial_dir, paste0(sample,"_HE.jpeg"))
         img <- readJPEG(image.path)
     } else if(paste0(sample,"_HE.jpg") %in% spatial_files) {
-        image.path <- file.path(saptial_dir, paste0(sample,"_HE.jpg"))
+        image.path <- file.path(spatial_dir, paste0(sample,"_HE.jpg"))
         img <- readJPEG(image.path)
     } else {
         image.path <- NA
